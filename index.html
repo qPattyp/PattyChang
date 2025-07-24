@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patty Chang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <!-- fontawsome CSS -->
+    <link rel="stylesheet" href="css/all.min.css">
+    <!-- 自訂的CSS權重最重，要放在最下面 -->
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <style>
+        /* @charset "UTF-8"只能放第一行，@import 字體只能放第二行 */
+        @import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poetsen+One&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
+        
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+        /* 變數 */
+        :root {
+            /* 灰階 */
+            --light: #f1f1f1;
+            --deep: #333;
+            --yellow: #ffdb0e;
+            /* 背景色 */
+            --bg-1: #f2edf0;
+            --bg-2: #E6ECE5;
+            --bg-3: #ECF0F4;
+            /* 按鈕 */
+            --btn: #BF9899;
+            /* 透明色 */
+            --alpha-1: rgba(0,0,0,0.5);
+            --alpha-2: rgba(0,0,0,0.8);
+            --alpha-3: rgba(246, 218, 248, 0.6);
+            --alpha-4: rgba(255, 255, 255, 0.3);
+            --alpha-5: rgba(255, 255, 255, 0.2);
+            --alpha-6: rgba(255, 219, 14, 0.5);
+            
+        }
+        html {
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        body {
+        /* font-family: 'Open Sans', sans-serif; */
+        color: #333;
+        background-color: var(--alpha-6);
+        }
+        header {
+        height: 10vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        }
+        nav {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        }
+        nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        }
+        nav ul li:hover {
+            border-bottom: 2px solid var(--deep);
+            
+        }
+        nav a {
+            color: var(--deep);
+            text-decoration: none;
+            font-weight: light;
+            
+        }
+        nav a:hover{
+            font-weight: normal;
+            font-size: large;
+            color:var(--deep);
+        }
+        /* 頁首區 */
+        .topbar {
+            position: fixed;/* 必須加入 width: 100%，否則內容物會回到原來的位置 */
+            width: 100%;
+            left: 0;
+            top: 0;
+            z-index: 99;
+            display: flex;/* 預設主軸方向為水平 */
+            /* flex-direction:row; row為預設值可省略*/
+            justify-content: space-between;/* 主軸（水平）分佈頭尾對齊 */
+            padding: 10px 15px;
+            background: var(--yellow);
+            box-shadow: 2px 2px 2px var(--alpha-4);
+        }
+        .logo {
+            width: 5%;
+        }
+        .logo a {
+            
+            height: 100%;
+            text-decoration: none;
+        }
+        
+        .logo a img {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background-image: url(./images/logo_b.svg);
+            background-size: contain;
+        }
+        .logo a img:hover {
+            background-image: url(./images/logo_w.svg);
+            
+        }
+
+        .navigation {
+            right: auto;
+            top: auto;
+            display: flex;
+            flex-direction: column; /* 主軸(垂直) */
+            align-items: flex-end; /* 副軸(水平)齊底(靠右) */
+        }
+
+        .navigation ul {
+            display: flex;
+        }
+        .topbar .icon {
+            display: flex;
+            flex-direction: row;
+            
+        }
+        .media {
+            width: 35px;
+            height: 35px;
+            margin: 0 10px;
+        }
+        .icon a {
+            width: 35px;
+            height: 35px;
+            margin-left: 10px;
+            transition: .4s;
+        }
+        /* hover */
+        .icon-fb:hover img {
+        content: url('./images/icon-fb-hover.svg');
+        }
+        .icon-ig:hover img {
+        content: url('./images/icon-ig-hover.svg');
+        }
+        .icon-line:hover img {
+        content: url('./images/icon-line-hover.svg');
+        }
+        .media::marker {
+            content: "";
+            display: none;
+        }
+        section {
+        padding: 5rem 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+        }
+        #header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--alpha-1);
+        }
+        #header {
+            height: 100vh;
+            background: url(./images/大頭照-鮮豔暖冷色.jpg) center fixed;
+            /* 圖片最好在50~250KB，最大500KB~1Mb */
+            background-size: contain;
+            /* 只有background-size: cover不可寫入縮寫中 */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        #header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        color: #fff;
+        z-index: 2;
+        }
+        @media (max-width:1024px) {
+            html {
+                margin: 0 auto;
+            }
+            .navigation {
+                right: auto;
+                top: auto;
+            }
+        }
+        @media (max-width:853px ){
+            .logo {
+                width: 10%;
+            }
+            nav a {
+                font-size: small;
+            }
+        }
+        @media (min-width:641px){
+            .hamburger{
+                display: none;
+            }
+        }
+        @media (max-width:640px) {
+                /* 手機版選單列樣式 */
+            .hamburger {
+                margin-bottom: 10px;
+                /*  修改button預設樣式  */ 
+                background-color: transparent;
+                border: none;
+                float: right;
+            }
+            
+            .bar {
+                display: block;
+                width: 25px;
+                height: 3px;
+                background-color: var(--deep);
+                margin: 5px auto;
+                transition: 0.35s;
+            }
+
+            /* 三 變換為 X */
+            .hamburger.is-active .bar:nth-child(1){
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.is-active .bar:nth-child(2){
+                opacity: 0;
+            }
+
+            .hamburger.is-active .bar:nth-child(3){
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            html {
+                width: fit-content;
+            }
+
+            .navigation {
+                display: none;/* 一開始不顯示 */
+                position: absolute;
+                right: auto;
+                top: auto;
+                animation: hide 0.35s both;
+            }
+
+            @keyframes hide {
+                from{
+                    opacity: 1; display: flex;
+                }
+                to{
+                    opacity: 0; display: none;
+                }
+            }
+
+            .navigation.show {
+                display: flex;/* 沿用display: flex;才會顯示 */
+                animation: show 0.35s both;
+            } 
+
+            @keyframes show {
+                from{
+                    opacity: 0;
+                }
+                to{
+                    opacity: 1;
+                }
+            }
+            .menu {
+                width: 160px;
+                flex-direction: column;
+                align-items: center;
+                border-radius: 20px;
+
+                /* 取消玻璃擬態效果 */
+                border: none;
+                background: none;
+                backdrop-filter:none;
+                box-shadow: none;
+
+                /* 在有display:flex，可以改變排練順序 */
+                order: -1;
+            }
+            .menu a {
+                font-weight: bold;
+                
+            }
+            .icon {
+                margin-right: 50px;
+            }
+            .icon a {
+                /* 偵測範圍 */
+                width: 44px;
+                height: 44px;
+
+                margin:0 5px 10px;
+
+                /* 圖片可見範圍 */
+                background-size: 35px 35px;
+                background-repeat: no-repeat;
+                background-position: center;
+                
+            }
+            #header {
+            height: 100vh;
+            background: url(./images/大頭照-鮮豔暖冷色m.jpg) fixed;
+            /* 圖片最好在50~250KB，最大500KB~1Mb */
+            
+            
+        }
+
+        }
+        /* 共用區RWD */
+
+        /* 手機版(權重最重:要寫在最下面) */
+        @media (max-width:640px) {
+            .title h2 {
+                font-size: 2rem;
+            }
+
+            .title h3 {
+                font-size: 1rem;
+            }
+        }
+    
+        
+
+        section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+        } 
+        #about{
+            background-color:var(--yellow);
+        }
+        #about p {
+            text-align:center; 
+            max-width: 700px; 
+            margin: 1rem auto;
+            font-weight: lighter;
+        }
+        .portfolio {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+        }
+        .portfolio img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        }
+        .portfolio img:hover {
+        transform: scale(1.03);
+        }
+        iframe{
+            width: 900px;
+            height: 900px;
+            margin: 40px auto;
+        }
+        #contact{
+            background-color:var(--yellow);
+        }
+        #contact p {
+            font-size: 0.9rem;
+            font-weight: lighter;
+            text-align:center; 
+            margin-top:1rem;
+        }
+        #contact p a {
+            text-decoration: none;
+            font-weight: lighter;
+            color: #202020;
+        }
+        footer {
+        padding: 1rem;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: lighter;
+        color: #777;
+        }
+        #goTop {
+            width: 50px;
+            height: 50px;
+            background-color:var(--yellow);
+            border-radius: 50%;
+
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 99;
+            color: white;
+            font-size: 2rem;
+            line-height: 50px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <!-- Logo區 -->
+        <h1 class="logo">
+            <a href="index.html">
+                <img src="./images/logo_b.svg" alt="logo">
+            </a>
+        </h1>
+        <div class="navbar">
+            <!-- 漢堡按鈕 -->
+            <button class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            </button>
+            <!-- 導覽列 -->
+            <nav class="navigation">
+                <!-- 主選單 -->
+                <ul>
+                    <li><a href="#about">關於我<br>About</a></li>
+                    <li><a href="#graphic">平面設計<br>Graphic</a></li>
+                    <li><a href="#uiux">介面設計<br>UI/UX</a></li>
+                    <li><a href="#html">網頁設計<br>HTML</a></li>
+                    <li><a href="#contact">聯絡方式<br>Contact</a></li>
+                </ul>
+            </nav>
+            <!-- icon按鈕 -->
+            <ul class="icon">
+                <li class="media">
+                    <a href="https://www.facebook.com/share/19H8cm7ENw/?mibextid=wwXIfr" class="icon-fb">
+                        <img src="./images/icon-fb.svg" alt="icon-fb">
+                    </a>
+                </li>
+                <li class="media">
+                    <a href="https://www.instagram.com/pattychang0520" class="icon-ig">
+                        <img src="./images/icon-ig.svg" alt="icon-ig">
+                    </a>
+                </li>
+                <!-- <li class="media">
+                    <a href="https://line.me/R/ti/p/@000ooumn" class="icon-line">
+                        <img src="./images/icon-line.svg" alt="icon-line">
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+            
+    </header>
+    <section id="header">
+        <h1>Patty Chang</h1>
+    </section>
+
+    <section id="about">
+        <h2>關於我<br>About Me</h2>
+        <p>Hi there! I’m Patty Chang — a multidisciplinary designer specializing in graphic design, UI/UX design, and front-end HTML development. I turn ideas into engaging visuals and intuitive digital experiences through clarity, creativity, and user-centered thinking.</p>
+        <P>嗨！你好，我是 Patty Chang，一位多元領域的設計師，專注於平面設計、UI/UX 介面設計與 HTML 前端開發。我善於結合清晰的視覺語言與以用戶為核心的思維，將概念轉化為吸引人且直覺的數位體驗。</P>
+    </section>
+
+    <section id="graphic">
+        <h2>平面設計<br>Graphic Design</h2>
+        <div class="portfolio">
+            <img src="./images/20211029 FREE ENVELOPE MOCKUP.jpg" alt="envelope Design">
+            <img src="./images/20211025 vertical-id-cards-mockup.jpg" alt="id card Design">
+            <img src="./images/20210703-老梅 .jpg" alt="poster Design">
+            <img src="./images/20210630-野柳.jpg" alt="poster Design">
+            <img src="./images/20210208 orange_bottle.jpg" alt="poster Design">
+            <img src="./images/20211109 Parctice.jpg" alt="poster Design">
+        </div>
+    </section>
+
+    <section id="uiux">
+        <h2>使用者介面與體驗設計<br>UI/UX Design</h2>
+        <div class="portfolio">
+        <img src="./images/Deehua_Behance 1.jpg" alt="Wireframe App Interface">
+        <img src="./images/Deehua_Behance 2.jpg" alt="App Interface">
+        <img src="./images/Portfolio-1.jpg" alt="App Interface">
+        <img src="./images/Portfolio-2.jpg" alt="App Interface">
+        </div>
+    </section>
+
+    <section id="html">
+        <h2>網頁切版<br>HTML Coding</h2>
+        <div class="portfolio">
+        <img src="./images/Linco01.jpg" alt="HTML Layout">
+        <img src="./images/Linco02.jpg" alt="Responsive Web">
+        </div>
+        <iframe src="https://qpattyp.github.io/Linco/index.html" width="auto" height="auto" frameborder="0" marginheight="0" marginwidth="0" alt="LINCO"></iframe>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeIkGOJg96Nwp3EAWPagV0_Tm19uYgcPxyu_QqU6N47bZ6AvQ/viewform?embedded=true" width="auto" height="auto" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>
+        
+    </section>
+
+    <footer>
+        <div id="goTop">
+            <i class="fa-solid fa-angle-up"></i>
+        </div>
+        &copy; 2025 Patty Chang. All rights reserved.
+    </footer>
+
+
+    <!-- jquery CDN (一定要最上面) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    
+    <script>
+        // smooth scroll
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = document.querySelector(this.getAttribute('href'));
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 滑動到指定位置
+        $('.menu a').click(function(){
+            let btn = $(this).attr('href');
+            let pos = $(btn).offset();
+            $('html,body').animate({scrollTop:pos.top},1000);
+        });
+        
+
+        // 滑動至頂
+        $('#goTop').click(function(){
+            $('html,body').animate({scrollTop:0},1000);
+        });
+
+        // FadeTo 較為穩定，不售其他干擾影響，需寫參數
+        $(window).scroll(function(){
+            if($(this).scrollTop() > 200 ){
+                $('#goTop').stop().fadeTo('fast',1);
+            }else{
+                $('#goTop').stop().fadeOut('fast');
+            }
+        });
+
+        //漢堡按鈕交替顯示 
+        $('.hamburger').click(function(){
+            $(this).toggleClass('is-active');
+            $('.navigation').toggleClass('show');
+        });
+
+        // 手機版移除玻璃擬態
+        // if($(window).width() <= 640){
+        //     $('.navigation .glassmorphism').removeClass('glassmorphism');
+        // }
+
+        // 手機版加入玻璃擬態
+        if($(window).width() <= 640){
+            $('.navigation').addClass('glassmorphism');
+        }
+    </script>
+    
+    
+</body>
+</html>
